@@ -1,0 +1,84 @@
+<style>
+  .receipt-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    color: #8b5a2b;
+    font-family: "Times New Roman", serif;
+    margin-bottom: 15px;
+    font-size: 32px;
+  }
+
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 20px 0 40px;
+  }
+
+  .divider-icon {
+    height: 24px;
+    margin-top: 10px;
+  }
+
+  .details {
+    margin-bottom: 15px;
+  }
+  .details p {
+    margin: 5px 0;
+  }
+  .total {
+    font-weight: bold;
+    text-align: right;
+  }
+</style>
+
+<section class="receipt-container" ng-controller="HistoryController">
+  <div class="header">
+    <h1>Thanh Toán</h1>
+    <div class="divider">
+      <img
+        src="./assets/images/img_icon_title.png"
+        alt="Divider"
+        class="divider-icon"
+      />
+    </div>
+  </div>
+  <p class="text-center">Cảm ơn bạn, đơn hàng của bạn đã được nhận.</p>
+
+  <div class="details">
+    <p><strong>SỐ ĐƠN HÀNG:</strong> {{ selectedOrder.orderNumber }}</p>
+    <p><strong>NGÀY:</strong> {{ selectedOrder.date }}</p>
+    <p><strong>TỔNG CỘNG:</strong> {{ selectedOrder.total }} VND</p>
+    <p>
+      <strong>PHƯƠNG THỨC THANH TOÁN:</strong>
+      {{ selectedOrder.paymentMethod }}
+    </p>
+    <p class="text-muted">Thanh toán bằng tiền mặt khi giao hàng.</p>
+  </div>
+
+  <h4>Chi tiết đơn hàng</h4>
+  <div class="details">
+    <p><strong>Sản phẩm:</strong> {{ selectedOrder.product }}</p>
+    <p><strong>Tổng phụ:</strong> {{ selectedOrder.total }} VND</p>
+  </div>
+
+  <div class="total">
+    <p><strong>Tổng cộng:</strong> {{ selectedOrder.total }} VND</p>
+  </div>
+
+  <!-- Nút điều hướng đơn hàng -->
+  <div class="navigation mt-3 text-center">
+    <button class="btn btn-secondary me-2" ng-click="prevOrder()">
+      Đơn hàng trước
+    </button>
+    <button class="btn btn-secondary" ng-click="nextOrder()">
+      Đơn hàng tiếp theo
+    </button>
+  </div>
+</section>

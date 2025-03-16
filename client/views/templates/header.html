@@ -1,0 +1,215 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="padding: 0">
+  <div
+    class="container-fluid d-flex flex-row align-items-center px-0 position-relative"
+  >
+    <!-- Header Left (Sát trái) -->
+    <div class="header-left">
+      <img
+        src="./assets/images/header_left.png"
+        alt="Header Left"
+        style="height: 100px; margin-right: 10px"
+      />
+    </div>
+
+    <!-- Logo -->
+    <a class="navbar-brand ms-2 ms-lg-0" href="#">
+      <img src="./assets/images/logo.jpg" alt="Yến Lầm" style="height: 100px" />
+    </a>
+
+    <!-- Header Right (Dưới Navbar) -->
+    <div class="header-right d-none d-lg-block">
+      <img
+        src="./assets/images/header_right.png"
+        alt="Header Right"
+        style="height: 100px; margin-left: 10px; object-fit: cover"
+      />
+    </div>
+
+    <!-- Navbar -->
+    <button
+      class="navbar-toggler ms-auto"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#/">Trang Chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/gioi-thieu">Giới Thiệu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/san-pham">Sản Phẩm</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/tin-tuc">Tin Tức</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/lien-he">Liên Hệ</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Giỏ Hàng -->
+    <div
+      class="btn btn-outline-light d-flex align-items-center"
+      data-bs-toggle="modal"
+      data-bs-target="#accountModal"
+    >
+      <i class="fas fa-user me-2"></i>
+      <span>{{ displayText }}</span>
+    </div>
+    <a
+      href="#/gio-hang"
+      class="btn btn-outline-light d-none d-lg-block ms-3"
+      ng-controller="CartStatusController"
+    >
+      Giỏ Hàng ({{ cartItemCount }} Sản Phẩm)
+    </a>
+  </div>
+</nav>
+
+<!-- First Login Modal -->
+<div
+  class="modal fade"
+  id="accountModal"
+  tabindex="-1"
+  aria-labelledby="accountModalLabel"
+  aria-hidden="true"
+  ng-controller="LoginController"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success bg-opacity-25">
+        <h5 class="modal-title text-success fw-bold" id="accountModalLabel">
+          <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center mb-4">
+          Bạn chưa có tài khoản? Không cần đăng ký. Đăng nhập nhanh với TINH MỘC
+          VIỆT bằng số điện thoại.
+        </p>
+
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="fas fa-phone text-success"></i>
+            </span>
+            <input
+              type="phoneNumber"
+              class="form-control"
+              placeholder="Nhập số điện thoại"
+              ng-model="phoneNumber"
+              ng-class="{'is-invalid': phoneError}"
+            />
+            <div class="invalid-feedback" ng-show="phoneError">
+              Vui lòng nhập số điện thoại
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-success w-100 py-2 mb-3"
+          ng-click="initiateLogin()"
+        >
+          Đăng nhập
+        </button>
+
+        <div class="text-center text-muted small">
+          Khi tiếp tục, bạn đồng ý với các điều khoản & điều kiện và Chính sách.
+        </div>
+
+        <div class="mt-4 text-center text-success">
+          <p>
+            Đăng nhập ngay để mua sắm dễ dàng hơn, sử dụng những tiện ích mới
+            nhất và tận hưởng thêm nhiều ưu đãi độc quyền dành riêng cho thành
+            viên TINH MỘC VIỆT
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Password Modal -->
+<div
+  class="modal fade"
+  id="passwordModal"
+  tabindex="-1"
+  aria-labelledby="passwordModalLabel"
+  aria-hidden="true"
+  ng-controller="LoginController"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success bg-opacity-25">
+        <h5 class="modal-title text-success fw-bold" id="passwordModalLabel">
+          <i class="fas fa-key me-2"></i>Nhập Mật khẩu
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Nhập mật khẩu cho tài khoản có số điện thoại
+          <span class="fw-bold">+{{phoneNumber}}</span> để đăng nhập
+        </p>
+
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="fas fa-lock text-success"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Nhập mật khẩu"
+              ng-model="password"
+              ng-class="{'is-invalid': passwordError || loginError}"
+            />
+            <div class="invalid-feedback" ng-show="passwordError">
+              Vui lòng nhập mật khẩu
+            </div>
+            <div class="invalid-feedback" ng-show="loginError">
+              {{errorMessage}}
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-success w-100 py-2 mb-3"
+          ng-click="submitLogin()"
+        >
+          Đăng nhập
+        </button>
+
+        <div class="text-center">
+          <a
+            href="#"
+            class="text-success text-decoration-none"
+            ng-click="forgotPassword()"
+            >Quên mật khẩu</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

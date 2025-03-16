@@ -1,0 +1,277 @@
+/* Custom Styles */
+.content-wrapper {
+  background-color: #f4f6f9;
+}
+
+.nav-sidebar .nav-link.active {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.nav-sidebar .nav-link:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+/* Navbar customization */
+.navbar-dark.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.navbar-dark .nav-link {
+  color: #ffffff;
+}
+
+.navbar-dark .form-control {
+  border: none;
+  background-color: #495057;
+  color: #ffffff;
+}
+
+/* Sidebar customization */
+.main-sidebar {
+  background-color: #343a40;
+}
+
+.nav-sidebar .nav-link {
+  color: #ffffff;
+}
+
+/* Content area */
+.card {
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1.2rem;
+}
+
+.card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+}
+
+.card-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-tools {
+  margin-left: auto;
+}
+
+.card-tools > button {
+  background-color: #6895d2;
+}
+
+.table-container {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-top: 1.2rem;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  border-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  color: #333;
+  background-color: #ffffff;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.table img {
+  max-width: 50px;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+}
+
+.table .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+
+.table .btn-warning {
+  background-color: #f3b95f;
+  border-color: #f3b95f;
+}
+
+.table .btn-danger {
+  background-color: #d04848;
+  border-color: #d04848;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+  border: none;
+  border-radius: 0;
+  color: #343a40;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+}
+
+/* Checkbox styling */
+.custom-control-label {
+  cursor: pointer;
+}
+
+/* Custom Modal Styles (unchanged from your original) */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-header.bg-primary {
+  background-color: #007bff;
+}
+
+.modal-header .modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-close {
+  filter: invert(1); /* Đảm bảo nút đóng màu trắng trong header màu xanh */
+}
+
+/* Navbar customization */
+.navbar-dark.bg-dark {
+  background-color: #000 !important;
+}
+
+.navbar-dark .nav-link {
+  color: #ffffff;
+}
+
+.navbar-nav .nav-item.d-flex.justify-content-center.flex-grow-1 .nav-link {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.navbar-dark .form-control {
+  border: none;
+  background-color: #495057;
+  color: #ffffff;
+}
+
+/* Sidebar customization */
+.main-sidebar {
+  background-color: #dee2e6; /* Gray color for sidebar */
+}
+
+.brand-link {
+  background-color: #000 !important; /* Match sidebar color */
+  text-align: center;
+}
+
+.navbar-nav > .nav-item > .nav-link > i {
+  color: white;
+}
+
+.brand-link > span {
+  letter-spacing: 2px;
+  font-weight: bold !important;
+}
+
+.nav-sidebar .nav-link {
+  color: #000;
+}
+
+.nav-sidebar .nav-link.active {
+  background-color: #fff !important;
+  color: black !important;
+}
+
+.nav-sidebar .nav-link:hover {
+  background-color: #fff !important;
+  color: black !important;
+}
+
+.nav-item > .nav-link > p {
+  color: black;
+  font-weight: 400;
+}
+
+.nav-item > .nav-link > i {
+  color: black;
+}
+
+/* Content area */
+.content-wrapper {
+  background-color: #ffffff;
+  border-top-left-radius: 20px; /* Rounded top-left corner */
+  border-top-right-radius: 20px; /* Rounded top-right corner */
+}
+
+.content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cke_notifications_area {
+  display: none !important;
+}

@@ -1,0 +1,123 @@
+<section class="checkout-section py-5" ng-controller="CheckoutController">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="section-title">Thanh Toán</h2>
+        <div class="divider">
+          <img
+            src="./assets/images/img_icon_title.png"
+            alt="Divider"
+            class="divider-icon"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Form thông tin khách hàng -->
+      <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+        <div class="checkout-form p-4 rounded shadow-sm bg-white">
+          <h4 class="mb-4">Thông tin khách hàng</h4>
+          <form name="orderForm" ng-submit="submitOrder()" novalidate>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Họ và Tên *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                ng-model="order.fullName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Số điện thoại *</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                ng-model="order.phone"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email *</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                ng-model="order.email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Địa chỉ *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                ng-model="order.address"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="note" class="form-label">Ghi chú</label>
+              <textarea
+                class="form-control"
+                id="note"
+                ng-model="order.note"
+                rows="3"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-custom w-100 mt-4"
+              ng-disabled="orderForm.$invalid"
+            >
+              Đặt hàng
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Thông tin đơn hàng -->
+      <div class="col-lg-5 col-md-12">
+        <div class="order-summary p-4 rounded shadow-sm bg-white">
+          <h4 class="mb-4">Thông tin đơn hàng</h4>
+          <div class="order-details mb-3">
+            <p class="mb-1">Order number: <span>{{order.orderNumber}}</span></p>
+            <p class="mb-1">Date: <span>{{order.orderDate}}</span></p>
+          </div>
+          <h5 class="mb-3">Phương thức giao hàng</h5>
+          <p class="mb-3">{{order.shippingMethod}}</p>
+          <h5 class="mb-3">Phương thức thanh toán</h5>
+          <p class="mb-3">{{order.paymentMethod}}</p>
+          <h5 class="mb-3">Sản phẩm</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2" ng-repeat="item in order.products">
+              {{item.name}} x {{item.quantity}} - {{item.price}} VND
+            </li>
+            <li class="mb-2">Tổng: <strong>{{order.total}} VND</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-title {
+    color: #8b5a2b;
+    font-family: "Times New Roman", serif;
+    margin-bottom: 15px;
+    font-size: 32px;
+  }
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 20px 0 40px;
+  }
+
+  .divider-icon {
+    height: 24px;
+    margin-top: 10px;
+  }
+</style>

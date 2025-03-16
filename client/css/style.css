@@ -1,0 +1,195 @@
+body {
+  background-image: url(../assets/images/background.jpg);
+  background-repeat: repeat;
+  font-family: "IBM Plex Serif", serif;
+  -webkit-font-smoothing: antialiased;
+  color: #372701;
+  overflow-x: hidden;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.navbar {
+  /* background-color: #5d4037 !important; */
+  padding: 10px 0;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand {
+  margin: 0 auto; /* Căn giữa logo trên mobile */
+}
+
+.navbar-nav {
+  margin-top: 10px; /* Khoảng cách cho menu trên mobile */
+}
+
+.nav-link {
+  color: #fff !important;
+  font-size: 16px;
+  margin: 0 15px;
+}
+
+.btn-outline-light {
+  border-color: #fff;
+  color: #fff;
+  font-size: 14px;
+}
+
+.btn-outline-light:hover {
+  background-color: #fff;
+  color: #5d4037;
+}
+
+.btn-outline-light {
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-outline-light:hover {
+  background-color: #fff;
+  color: #5d4037;
+}
+
+.owl-carousel .item img {
+  height: 400px;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.carousel-caption h5 {
+  color: #fff;
+  font-size: 24px;
+}
+
+.carousel-caption p {
+  color: #fff;
+  font-size: 16px;
+}
+
+/* footer.component.css */
+.footer {
+  background-image: url(../assets/images/background_2.png);
+  background-repeat: repeat;
+}
+
+.footer a {
+  color: #b0b3b8;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Sát trái cho header-left */
+.header-left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Header-right làm background */
+.header-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1; /* Đưa xuống dưới navbarNav */
+}
+
+/* Ẩn header_right trên mobile */
+@media (max-width: 992px) {
+  .navbar {
+    background-color: #7A5A36 !important; /* Nâu */
+  }
+
+  .header-left,
+  .header-right {
+    display: none; /* Ẩn ảnh */
+  }
+
+  .navbar-brand img {
+    height: 70px !important; /* Giảm kích thước logo */
+  }
+  .btn-outline-light {
+    display: none; /* Ẩn nút Giỏ Hàng trên mobile nếu cần */
+  }
+  .navbar-nav {
+    margin-top: 10px; /* Khoảng cách cho menu trên mobile */
+  }
+}
+
+/* Hiển thị header_right và nút Giỏ Hàng trên desktop */
+@media (min-width: 992px) {
+  .navbar {
+    padding: 5px 0; /* Giảm padding trên desktop để gọn gàng hơn */
+  }
+  .container-fluid {
+    justify-content: space-between; /* Phân bố không gian giữa các phần tử */
+  }
+  .navbar-brand {
+    margin-left: 4rem !important; /* Khoảng cách giữa logo và các phần tử khác */
+  }
+  .btn-outline-light {
+    margin-left: 15px; /* Khoảng cách giữa nút Giỏ Hàng và menu */
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 0.9rem;
+  }
+
+  .footer h5 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsive Social Media Blocks */
+.social-media .btn {
+  width: 100%;
+  max-width: 250px;
+}
+
+/* Ensure images are responsive */
+.footer img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Adjust layout for small screens */
+@media (max-width: 576px) {
+  .footer .list-unstyled {
+    padding-left: 0;
+  }
+
+  .footer .contact-info p {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer .social-media .btn {
+    width: 100%;
+  }
+}
+
+.subscribe input:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.subscribe button:hover {
+  background: #b08968;
+  transition: 0.3s;
+}

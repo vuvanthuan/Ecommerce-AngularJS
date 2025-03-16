@@ -1,0 +1,253 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Danh sách sản phẩm</h3>
+    <div class="card-tools">
+      <button class="btn btn-primary" ng-click="openCreateProductModal()">
+        Thêm sản phẩm
+      </button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Giá</th>
+          <th>Kích thước (HxD)</th>
+          <th>Chất liệu</th>
+          <th>Màu men</th>
+          <th>Mã sản phẩm</th>
+          <th>Ảnh</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>
+            {{ product.dimensions.height }} x {{ product.dimensions.diameter }}
+          </td>
+          <td>{{ product.material }}</td>
+          <td>{{ product.glazeColor }}</td>
+          <td>{{ product.productCode }}</td>
+          <td>
+            <img ng-src="{{ product.image }}" alt="Product Image" width="50" />
+          </td>
+          <td>
+            <button
+              class="btn btn-sm btn-warning"
+              ng-click="openEditProductModal(product._id)"
+            >
+              Sửa
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              ng-click="deleteProduct(product._id)"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Modal -->
+<div id="productModal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          ng-click="closeModal()"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          novalidate
+          ng-submit="saveProduct($event)"
+        >
+          <!-- Tên sản phẩm -->
+          <div class="form-group">
+            <label>Tên sản phẩm</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.name"
+              required
+            />
+          </div>
+
+          <!-- Giá -->
+          <div class="form-group">
+            <label>Giá</label>
+            <input
+              type="number"
+              class="form-control"
+              ng-model="formData.price"
+              required
+            />
+          </div>
+
+          <!-- Mô tả -->
+          <div class="form-group">
+            <label>Mô tả</label>
+            <textarea
+              class="form-control"
+              ng-model="formData.description"
+            ></textarea>
+          </div>
+
+          <!-- Kích thước -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Chiều cao (H)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  ng-model="formData.dimensions.height"
+                  placeholder="Ví dụ: 3.5 cm"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Đường kính (D)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  ng-model="formData.dimensions.diameter"
+                  placeholder="Ví dụ: 26 cm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Thông tin thiết kế -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nhà thiết kế</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  ng-model="formData.designInfo.designer"
+                  placeholder="Ví dụ: Yên Lam Gốm"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Địa điểm</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  ng-model="formData.designInfo.location"
+                  placeholder="Ví dụ: Việt Nam"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Chất liệu -->
+          <div class="form-group">
+            <label>Chất liệu</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.material"
+              placeholder="Ví dụ: Gốm nung trên 1250 độ C"
+            />
+          </div>
+
+          <!-- Màu men -->
+          <div class="form-group">
+            <label>Màu men</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.glazeColor"
+              placeholder="Ví dụ: Nâu Tủa"
+            />
+          </div>
+
+          <!-- Mã sản phẩm -->
+          <div class="form-group">
+            <label>Mã sản phẩm</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.productCode"
+              placeholder="Ví dụ: BNM 2002 74 00 26"
+            />
+          </div>
+
+          <!-- Danh mục -->
+          <div class="form-group">
+            <label>Danh mục</label>
+            <select
+              class="form-control"
+              ng-model="formData.categories"
+              multiple
+              ng-options="category._id as category.name for category in categories"
+            ></select>
+          </div>
+
+          <!-- Tags -->
+          <div class="form-group">
+            <label>Tags</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.tags"
+              placeholder="Nhập tags, phân cách bằng dấu phẩy"
+            />
+          </div>
+
+          <!-- Số lượng -->
+          <div class="form-group">
+            <label>Số lượng</label>
+            <input
+              type="number"
+              class="form-control"
+              ng-model="formData.quantity"
+              required
+            />
+          </div>
+
+          <!-- Ảnh -->
+          <div class="form-group">
+            <label>Ảnh</label>
+            <input
+              type="file"
+              class="form-control"
+              file-change="uploadImage(file)"
+              accept="image/*"
+            />
+            <img
+              ng-if="formData.image"
+              ng-src="{{ formData.image }}"
+              alt="Image Preview"
+              style="max-width: 100px; margin-top: 10px"
+            />
+          </div>
+
+          <!-- Nút lưu -->
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Lưu
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

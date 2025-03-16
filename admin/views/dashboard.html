@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Tổng khách hàng</h5>
+          <h3>{{totalCustomers}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Tổng sản phẩm</h5>
+          <h3>{{totalProducts}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <h5 class="card-title">Tổng đơn hàng</h5>
+          <h3>{{totalOrders}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Thống kê đơn hàng</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="orderChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

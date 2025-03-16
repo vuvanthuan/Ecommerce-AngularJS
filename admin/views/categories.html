@@ -1,0 +1,83 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Danh sách danh mục</h3>
+    <div class="card-tools">
+      <button class="btn btn-primary" ng-click="openCreateCategoryModal()">
+        Thêm danh mục
+      </button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Tên danh mục</th>
+          <th>Tags</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="category in categories">
+          <td>{{ category.name }}</td>
+          <td>{{ category.tag.join(', ') }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-warning"
+              ng-click="openEditCategoryModal(category._id)"
+            >
+              Sửa
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              ng-click="deleteCategory(category._id)"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="categoryModal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button type="button" class="close" data-dismiss="modal" ng-click="closeModal()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="saveCategory()">
+          <!-- Tên danh mục -->
+          <div class="form-group">
+            <label>Tên danh mục</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.name"
+              required
+            />
+          </div>
+
+          <!-- Tags -->
+          <div class="form-group">
+            <label>Tags</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.tag"
+              placeholder="Nhập tags, phân cách bằng dấu phẩy"
+            />
+          </div>
+
+          <!-- Nút lưu -->
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

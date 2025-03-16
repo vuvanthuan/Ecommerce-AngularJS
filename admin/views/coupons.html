@@ -1,0 +1,101 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Danh sách khuyến mãi</h3>
+    <div class="card-tools">
+      <button class="btn btn-primary" ng-click="openCreateCouponModal()">
+        Thêm khuyến mãi
+      </button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Mã giảm giá</th>
+          <th>Giảm giá</th>
+          <th>Ngày hết hạn</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="coupon in coupons">
+          <td>{{ coupon.code }}</td>
+          <td>{{ coupon.discount }}%</td>
+          <td>{{ coupon.expireDate | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button
+              class="btn btn-sm btn-warning"
+              ng-click="openEditCouponModal(coupon._id)"
+            >
+              Sửa
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              ng-click="deleteCoupon(coupon._id)"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="couponModal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          ng-click="closeModal()"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="saveCoupon()">
+          <!-- Mã giảm giá -->
+          <div class="form-group">
+            <label>Mã giảm giá</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="formData.code"
+              required
+            />
+          </div>
+
+          <!-- Giảm giá -->
+          <div class="form-group">
+            <label>Giảm giá</label>
+            <input
+              type="number"
+              class="form-control"
+              ng-model="formData.discount"
+              required
+            />
+          </div>
+
+          <!-- Ngày hết hạn -->
+          <div class="form-group">
+            <label>Ngày hết hạn</label>
+            <input
+              type="date"
+              class="form-control"
+              ng-model="formData.expireDate"
+              required
+            />
+          </div>
+
+          <!-- Nút lưu -->
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

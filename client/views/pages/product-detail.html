@@ -1,0 +1,166 @@
+<!-- Section Chi Tiết Sản Phẩm -->
+<section
+  class="product-detail-section py-5"
+  ng-controller="ProductDetailController"
+>
+  <div class="container">
+    <div class="row">
+      <!-- Hình ảnh sản phẩm -->
+      <div class="col-md-6 mb-4">
+        <div class="product-image-container">
+          <img
+            ng-src="{{ selectedProduct.image }}"
+            alt="{{ selectedProduct.name }}"
+            class="img-fluid w-100"
+            style="height: 400px; object-fit: cover"
+          />
+        </div>
+      </div>
+
+      <!-- Thông tin sản phẩm -->
+      <div class="col-md-6 mb-4">
+        <div class="product-info p-4 bg-light rounded shadow-sm">
+          <h2 class="product-name mb-3">{{ selectedProduct.name }}</h2>
+          <p class="product-price mb-3">
+            {{ selectedProduct.price | currency: "VND" }}
+          </p>
+          <div class="product-details mb-3">
+            <p>
+              <strong>Kích thước:</strong> H: {{
+              selectedProduct.dimensions.height }}, Đ: {{
+              selectedProduct.dimensions.diameter }}
+            </p>
+            <p>
+              <strong>Thiết kế bởi:</strong> {{
+              selectedProduct.designInfo.designer }} - {{
+              selectedProduct.designInfo.location }}
+            </p>
+            <p><strong>Chất liệu:</strong> {{ selectedProduct.material }}</p>
+            <p><strong>Màu men:</strong> {{ selectedProduct.glazeColor }}</p>
+            <p>
+              <strong>Mã sản phẩm:</strong> {{ selectedProduct.productCode }}
+            </p>
+            <p><strong>Số lượng:</strong> {{ selectedProduct.quantity }}</p>
+          </div>
+          <p class="product-description">{{ selectedProduct.description }}</p>
+          <button
+            class="btn btn-brown mt-3"
+            ng-click="addToCart(selectedProduct._id)"
+          >
+            Thêm vào giỏ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sản phẩm liên quan -->
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        <h3 class="section-subtitle mb-4">Các sản phẩm tương tự</h3>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div
+            class="col-md-4 mb-4"
+            ng-repeat="relatedProduct in relatedProducts"
+          >
+            <div
+              class="product-item rounded overflow-hidden shadow"
+              ng-click="goToProductDetail(relatedProduct._id)"
+            >
+              <img
+                ng-src="{{ relatedProduct.image }}"
+                alt="{{ relatedProduct.name }}"
+                class="img-fluid w-100"
+                style="height: 250px; object-fit: cover"
+              />
+              <div class="p-3 bg-light text-center">
+                <h5 class="mb-1 product-name">{{ relatedProduct.name }}</h5>
+                <p class="product-price">
+                  {{ relatedProduct.price | currency: "VND" }}
+                </p>
+                <button
+                  class="btn btn-custom btn-sm"
+                  ng-click="addToCart(relatedProduct._id)"
+                >
+                  Thêm sản phẩm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CSS tùy chỉnh -->
+<style>
+  .product-image-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .product-info {
+    border: 1px solid #ddd;
+  }
+
+  .product-name {
+    color: #8b5a2b;
+    font-family: "Times New Roman", serif;
+    font-size: 2rem;
+  }
+
+  .product-price {
+    color: #2d5082;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .product-details p {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .product-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .section-subtitle {
+    color: #8b5a2b;
+    font-family: "Times New Roman", serif;
+    font-size: 1.5rem;
+  }
+
+  .btn-brown {
+    background-color: #8b5a2b;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-brown:hover {
+    background-color: #6b4e31;
+    color: #fff;
+  }
+
+  .btn-custom {
+    background-color: #8b5a2b;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    background-color: #6b4e31;
+    color: #fff;
+  }
+</style>

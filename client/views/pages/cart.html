@@ -1,0 +1,269 @@
+<div class="container-fluid cart-container" ng-controller="CartController">
+  <div class="cart-wrapper">
+    <h1 class="text-center cart-title">Giỏ Hàng</h1>
+    <div class="divider">
+      <img
+        src="./assets/images/img_icon_title.png"
+        alt="Divider"
+        class="divider-icon"
+      />
+    </div>
+
+    <div class="cart-content">
+      <div class="table-responsive">
+        <table class="table cart-table">
+          <thead>
+            <tr>
+              <th>Sản Phẩm</th>
+              <th>Giá</th>
+              <th>Số Lượng</th>
+              <th>Tổng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in cartItems">
+              <td class="product-cell">
+                <button class="remove-btn" ng-click="removeItem(item)">
+                  ×
+                </button>
+                <img
+                  ng-src="{{item.image}}"
+                  alt="{{item.name}}"
+                  class="product-image"
+                />
+                <span class="product-name">{{item.name}}</span>
+              </td>
+              <td class="price-cell">{{item.price | currency:'':'0'}} VND</td>
+              <td class="quantity-cell">
+                <input
+                  type="number"
+                  class="form-control quantity-input"
+                  ng-model="item.quantity"
+                  ng-change="updateCart()"
+                />
+              </td>
+              <td class="total-cell">
+                {{item.price * item.quantity | currency:'':'0'}} VND
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary">
+        <h2 class="summary-title">Tổng số giỏ hàng</h2>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{getSubtotal() | currency:'':'0'}} VND</span>
+        </div>
+        <div class="summary-row">
+          <span>Tổng</span>
+          <span>{{getTotal() | currency:'':'0'}} VND</span>
+        </div>
+        <button class="checkout-btn" ng-click="checkout()">Thanh Toán</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cart-container {
+    padding: 50px 20px;
+  }
+
+  .cart-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+  }
+
+  .cart-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 5px;
+  }
+
+  .cart-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #8b5a2b;
+    font-family: "Times New Roman", serif;
+    font-weight: normal;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+  }
+  .divider {
+    position: relative;
+    text-align: center;
+    margin: 20px 0 40px;
+  }
+
+  .divider-icon {
+    height: 24px;
+    margin-top: 10px;
+  }
+
+  .cart-separator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 40px;
+    position: relative;
+  }
+
+  .cart-separator:before {
+    content: "";
+    height: 1px;
+    background-color: #d3c0a9;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+  }
+
+  .separator-icon {
+    background-image: url("./assets/images/img_icon_title.png");
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f9f5f0;
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+  }
+
+  .cart-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #d3c0a9;
+  }
+
+  .cart-table th {
+    background-color: #f5efe6;
+    color: #5a3d2b;
+    font-weight: normal;
+    padding: 15px;
+    border-bottom: 1px solid #d3c0a9;
+    text-align: left;
+  }
+
+  .cart-table td {
+    padding: 15px;
+    border-bottom: 1px solid #d3c0a9;
+    vertical-align: middle;
+  }
+
+  .product-cell {
+    display: flex;
+    align-items: center;
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #5a3d2b;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+
+  .product-name {
+    font-size: 1rem;
+    color: #5a3d2b;
+  }
+
+  .quantity-input {
+    width: 70px;
+    text-align: center;
+    border: 1px solid #d3c0a9;
+    background-color: #fff;
+  }
+
+  .cart-summary {
+    margin-top: 40px;
+    border: 1px solid #d3c0a9;
+    padding: 20px;
+    background-color: #f5efe6;
+  }
+
+  .summary-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #5a3d2b;
+    font-weight: normal;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #d3c0a9;
+  }
+
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #5a3d2b;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .checkout-btn:hover {
+    background-color: #7a5d4b;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .cart-table thead {
+      display: none;
+    }
+
+    .cart-table,
+    .cart-table tbody,
+    .cart-table tr,
+    .cart-table td {
+      display: block;
+      width: 100%;
+    }
+
+    .cart-table tr {
+      margin-bottom: 15px;
+      border: 1px solid #d3c0a9;
+    }
+
+    .cart-table td {
+      text-align: right;
+      padding-left: 50%;
+      position: relative;
+    }
+
+    .cart-table td:before {
+      content: attr(data-label);
+      position: absolute;
+      left: 15px;
+      width: 45%;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .product-cell {
+      justify-content: flex-end;
+    }
+  }
+</style>

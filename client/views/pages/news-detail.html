@@ -1,0 +1,14 @@
+<section class="news-detail py-5" ng-controller="NewsDetailController">
+  <div class="container">
+    <h2 class="fw-bold text-uppercase">{{ newsDetail.title }}</h2>
+    <span>{{ formatDate(newsDetail.createdAt) }}</span>
+    <p class="text-muted">{{ newsDetail.date | date:'dd/MM/yyyy HH:mm' }}</p>
+    <img
+      ng-src="{{ newsDetail.thumbnail }}"
+      class="img-fluid rounded my-3"
+      alt="News Image"
+    />
+    <div ng-bind-html="newsDetail.safeContent"></div>
+    <a href="#/" class="btn btn-dark mt-3">Quay lại</a>
+  </div>
+</section>
