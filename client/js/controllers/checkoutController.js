@@ -1,14 +1,6 @@
 app.controller(
   "CheckoutController",
   function ($scope, apiService, CartService, $location) {
-    // Thêm $location
-    // Kiểm tra đăng nhập
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      alert("Vui lòng đăng nhập trước khi đặt hàng!");
-      $location.path("/"); // Chuyển hướng về trang chủ
-      return;
-    }
 
     $scope.order = {
       fullName: "",
@@ -28,11 +20,6 @@ app.controller(
       if ($scope.orderForm.$valid) {
         // Kiểm tra lại userId trước khi gửi đơn hàng
         const userId = localStorage.getItem("userId");
-        if (!userId) {
-          alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
-          $location.path("/");
-          return;
-        }
 
         const orderData = {
           userId: userId, // Thêm userId vào orderData

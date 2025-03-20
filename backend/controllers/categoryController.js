@@ -4,7 +4,7 @@ exports.createCategory = async (req, res) => {
   try {
     const { name, tag } = req.body;
 
-    // Kiểm tra và xử lý tag
+    // Kiểm tra và xử lý tag (tag1, tag2) => [tag1, tag2]
     const tagsArray =
       typeof tag === "string" ? tag.split(",").map((tag) => tag.trim()) : [];
 
@@ -12,7 +12,9 @@ exports.createCategory = async (req, res) => {
       name,
       tag: tagsArray,
     });
-    await category.save();
+
+    await category.save()
+
     res.status(201).json(category);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -26,6 +28,7 @@ exports.updateCategory = async (req, res) => {
     const { name, tag } = req.body;
 
     const category = await Category.findById(id);
+
     if (!category) {
       return res.status(404).json({ error: "Danh mục không tồn tại." });
     }
@@ -40,6 +43,7 @@ exports.updateCategory = async (req, res) => {
     category.tag = tagsArray;
 
     await category.save();
+
     res.status(200).json(category);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -73,7 +77,9 @@ exports.getCategoryById = async (req, res) => {
 exports.deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
+
     await Category.findByIdAndDelete(id);
+
     res.status(200).json({ message: "Danh mục đã được xóa thành công." });
   } catch (error) {
     res.status(500).json({ error: error.message });

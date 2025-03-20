@@ -86,7 +86,7 @@ app.controller("ProductController", [
       if ($event) {
         $event.preventDefault();
       }
-      if ($scope.formData._id) {
+      if ($scope.formData._id) { //Bấm sửa
         // Update existing product
         apiService
           .put("/api/products/" + $scope.formData._id, $scope.formData)

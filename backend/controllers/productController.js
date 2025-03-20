@@ -6,13 +6,6 @@ const mongoose = require("mongoose");
 // Create a new product
 exports.createProduct = async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: "Không có file nào được tải lên." });
-    }
-    if (req.file.size > 5 * 1024 * 1024) {
-      return res.status(400).json({ error: "File quá lớn. Giới hạn là 5MB." });
-    }
-
     const {
       name,
       price,
@@ -25,25 +18,57 @@ exports.createProduct = async (req, res) => {
       glazeColor,
       productCode,
       categories,
+      image,
       tags,
       quantity,
+      dimensions, // Lấy dimensions nếu có
+      designInfo, // Lấy designInfo nếu có
     } = req.body;
 
-    const image = `/public/images/${req.file.filename}`;
+    // Xử lý dimensions
+    const parsedHeight =
+      dimensions?.height !== undefined ? dimensions.height : height;
+    const parsedDiameter =
+      dimensions?.diameter !== undefined ? dimensions.diameter : diameter;
+    const finalHeight =
+      parsedHeight === "N/A" || isNaN(parseFloat(parsedHeight))
+        ? 0
+        : parseFloat(parsedHeight);
+    const finalDiameter =
+      parsedDiameter === "N/A" || isNaN(parseFloat(parsedDiameter))
+        ? 0
+        : parseFloat(parsedDiameter);
+
+    // Xử lý designInfo
+    const parsedDesigner =
+      designInfo?.designer !== undefined ? designInfo.designer : designer;
+    const parsedLocation =
+      designInfo?.location !== undefined ? designInfo.location : location;
+    const finalDesigner =
+      parsedDesigner === undefined || parsedDesigner === null
+        ? "N/A"
+        : String(parsedDesigner);
+    const finalLocation =
+      parsedLocation === undefined || parsedLocation === null
+        ? "N/A"
+        : String(parsedLocation);
 
     const product = new Product({
       name,
-      price,
+      price: parseFloat(price) || 0,
       description,
       image,
-      dimensions: { height, diameter },
-      designInfo: { designer, location },
+      dimensions: { height: finalHeight, diameter: finalDiameter },
+      designInfo: { designer: finalDesigner, location: finalLocation },
       material,
       glazeColor,
       productCode,
       categories,
-      tags: tags.split(",").map((tag) => tag.trim()),
-      quantity: parseInt(quantity),
+      tags:
+        tags && typeof tags === "string"
+          ? tags.split(",").map((tag) => tag.trim())
+          : [],
+      quantity: parseInt(quantity) || 0,
     });
 
     await product.save();
@@ -104,14 +129,16 @@ exports.updateProduct = async (req, res) => {
       height,
       diameter,
       designer,
-      image,
       location,
       material,
       glazeColor,
       productCode,
       categories,
       tags,
+      image,
       quantity,
+      dimensions, // Lấy dimensions nếu có
+      designInfo, // Lấy designInfo nếu có
     } = req.body;
 
     const product = await Product.findById(id);
@@ -121,26 +148,50 @@ exports.updateProduct = async (req, res) => {
 
     // Cập nhật thông tin sản phẩm
     if (name) product.name = name;
-    if (price) product.price = parseFloat(price);
+    if (price !== undefined) product.price = parseFloat(price) || 0;
     if (description) product.description = description;
 
-    // Đảm bảo dimensions tồn tại trước khi cập nhật
+    // Xử lý dimensions
     product.dimensions = product.dimensions || {};
-    if (height !== undefined) product.dimensions.height = parseFloat(height);
-    if (diameter !== undefined)
-      product.dimensions.diameter = parseFloat(diameter);
+    const parsedHeight =
+      dimensions?.height !== undefined ? dimensions.height : height;
+    const parsedDiameter =
+      dimensions?.diameter !== undefined ? dimensions.diameter : diameter;
+    if (parsedHeight !== undefined) {
+      product.dimensions.height =
+        parsedHeight === "N/A" || isNaN(parseFloat(parsedHeight))
+          ? 0
+          : parseFloat(parsedHeight);
+    }
+    if (parsedDiameter !== undefined) {
+      product.dimensions.diameter =
+        parsedDiameter === "N/A" || isNaN(parseFloat(parsedDiameter))
+          ? 0
+          : parseFloat(parsedDiameter);
+    }
 
-    // Đảm bảo designInfo tồn tại trước khi cập nhật
+    // Xử lý designInfo
     product.designInfo = product.designInfo || {};
-    if (designer) product.designInfo.designer = designer;
-    if (location) product.designInfo.location = location;
+    const parsedDesigner =
+      designInfo?.designer !== undefined ? designInfo.designer : designer;
+    const parsedLocation =
+      designInfo?.location !== undefined ? designInfo.location : location;
+    if (parsedDesigner !== undefined) {
+      product.designInfo.designer =
+        parsedDesigner === null ? "N/A" : String(parsedDesigner);
+    }
+    if (parsedLocation !== undefined) {
+      product.designInfo.location =
+        parsedLocation === null ? "N/A" : String(parsedLocation);
+    }
 
     if (material) product.material = material;
     if (glazeColor) product.glazeColor = glazeColor;
     if (productCode) product.productCode = productCode;
     if (categories) product.categories = categories;
-    if (tags && typeof tags === "string") product.tags = tags.split(",").map((tag) => tag.trim());
-    if (quantity) product.quantity = parseInt(quantity);
+    if (tags && typeof tags === "string")
+      product.tags = tags.split(",").map((tag) => tag.trim());
+    if (quantity !== undefined) product.quantity = parseInt(quantity) || 0;
     if (image) product.image = image;
 
     // Nếu có upload ảnh mới
@@ -154,7 +205,6 @@ exports.updateProduct = async (req, res) => {
       product.image = `/public/images/${req.file.filename}`;
     }
 
-    // Lưu thay đổi vào database
     await product.save();
     res.status(200).json(product);
   } catch (error) {

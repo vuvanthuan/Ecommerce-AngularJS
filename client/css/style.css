@@ -60,6 +60,13 @@ body {
   object-fit: cover;
 }
 
+.product-name {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .carousel-caption {
   background: rgba(0, 0, 0, 0.5);
   padding: 10px;
@@ -112,7 +119,7 @@ body {
 /* Ẩn header_right trên mobile */
 @media (max-width: 992px) {
   .navbar {
-    background-color: #7A5A36 !important; /* Nâu */
+    background-color: #7a5a36 !important; /* Nâu */
   }
 
   .header-left,

@@ -1,10 +1,64 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Order = require("../models/order");
+const User = require("../models/user");
 
 // Create a new order
 exports.createOrder = async (req, res) => {
   try {
-    const order = new Order(req.body);
+    let {
+      userId,
+      fullName,
+      phone,
+      email,
+      address,
+      note,
+      products,
+      totalAmount,
+      orderNumber,
+      orderDate,
+      shippingMethod,
+      paymentMethod,
+    } = req.body;
+
+    // Nếu không có userId (khách vãng lai), tạo tài khoản mới
+    if (!userId) {
+      const existingUser = await User.findOne({
+        $or: [{ email }, { phoneNumber: phone }],
+      });
+      if (existingUser) {
+        userId = existingUser._id;
+      } else {
+        const newUser = await User.create({
+          username: fullName,
+          email: email,
+          phoneNumber: phone,
+          password: phone,
+        });
+        userId = newUser._id;
+      }
+    }
+
+    // Tạo order với userId đã xử lý
+    const order = new Order({
+      userId, // Gán userId đã xác định
+      fullName,
+      phone,
+      email,
+      address,
+      note: note || "",
+      products: products.map((item) => ({
+        productId: item.productId,
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalAmount,
+      orderNumber,
+      orderDate,
+      shippingMethod,
+      paymentMethod,
+    });
+
     await order.save();
     res.status(201).json(order);
   } catch (error) {
@@ -19,7 +73,7 @@ exports.getOrders = async (req, res) => {
     let query = {};
 
     if (userId) {
-        query.userId = new mongoose.Types.ObjectId(userId);
+      query.userId = new mongoose.Types.ObjectId(userId);
     }
 
     // Populate 'products.productId'
